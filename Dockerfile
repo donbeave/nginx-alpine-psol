@@ -1,8 +1,8 @@
-ARG ALPINE_VER
+ARG NGINX_VERSION
 
-FROM alpine:${ALPINE_VER}
+FROM nginx:${NGINX_VERSION}-alpine
 
-ENV MOD_PAGESPEED_TAG v1.13.35.2
+ARG MOD_PAGESPEED_VERSION
 
 RUN apk add --no-cache \
         apache2-dev \
@@ -23,7 +23,7 @@ RUN apk add --no-cache \
     ;
 
 WORKDIR /usr/src
-RUN git clone -b ${MOD_PAGESPEED_TAG} \
+RUN git clone -b v${MOD_PAGESPEED_VERSION} \
               --recurse-submodules \
               --depth=1 \
               -c advice.detachedHead=false \
