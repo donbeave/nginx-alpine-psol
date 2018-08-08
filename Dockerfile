@@ -19,18 +19,17 @@ RUN apk add --no-cache \
         libressl-dev \
         pcre-dev \
         py-setuptools \
-        zlib-dev \
-    ;
+        zlib-dev
 
 WORKDIR /usr/src
+
 RUN git clone -b v${MOD_PAGESPEED_VERSION} \
               --recurse-submodules \
               --depth=1 \
               -c advice.detachedHead=false \
               -j`nproc` \
               https://github.com/apache/incubator-pagespeed-mod.git \
-              modpagespeed \
-    ;
+              modpagespeed
 
 WORKDIR /usr/src/modpagespeed
 
@@ -50,8 +49,7 @@ RUN build/gyp_chromium --depth=. \
     make psol BUILDTYPE=Release \
               CFLAGS+="-I/usr/include/apr-1" \
               CXXFLAGS+="-I/usr/include/apr-1 -DUCHAR_TYPE=uint16_t" \
-              -j`nproc` \
-    ;
+              -j`nproc`
 
 RUN mkdir -p /psol/lib/Release/linux/x64; \
     mkdir -p /psol/include/out/Release; \
@@ -63,6 +61,12 @@ RUN mkdir -p /psol/lib/Release/linux/x64; \
           testing \
           third_party \
           url \
-          /psol/include/; \
-    \
-    tar czf psol.tar.gz /psol
+          /psol/include/;
+
+WORKDIR /usr/src/modpagespeed
+
+RUN apk add --no-cache \
+    		tar \
+    		gzip
+
+RUN tar -czvf psol.tar.gz /psol
