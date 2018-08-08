@@ -3,12 +3,9 @@ language: bash
 services:
   - docker
 
-env:
-  - ALPINE_VER=3.8
-
 script:
-  - docker build -t psol --build-arg ALPINE_VER="${ALPINE_VER}" ./
-  - docker run --rm -v $PWD:/tmp psol sh -c "cp /usr/src/modpagespeed/psol.tar.gz /tmp/"
+  - ./build.sh
+  - ./extract-psol-archive.sh
 
 deploy:
   - provider: releases
