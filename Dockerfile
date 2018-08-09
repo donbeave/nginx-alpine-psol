@@ -64,7 +64,7 @@ RUN set -ex \
     && rm -rf /usr/src \
     && mkdir -p /usr/src \
     && cd /usr/src \
-    && tar -czvf /usr/src/psol.tar.gz /psol \
+    && tar -czf /usr/src/psol.tar.gz /psol \
     && apk del .build-deps \
     && apk del tar \
                gzip \

@@ -6,6 +6,8 @@ services:
 script:
   - ./build.sh
   - ./extract-psol-archive.sh
+  - ./docker-login.sh
+  - ./upload-docker.sh
 
 deploy:
   - provider: releases
