@@ -10,9 +10,6 @@ cd ${ABSOLUTE_PATH}
 
 . ./env.sh;
 
-echo "NGINX_VERSION=${NGINX_VERSION}"
-echo "MOD_PAGESPEED_VERSION=${MOD_PAGESPEED_VERSION}"
-
 docker build \
             -t ${DOCKER_REPOSITORY}:${VERSION} \
             --build-arg NGINX_VERSION=${NGINX_VERSION} \
